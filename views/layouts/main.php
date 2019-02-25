@@ -29,32 +29,43 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'Тур В Путь!',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
+    if(Yii::$app->user->isGuest)
+    {
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                ['label' => 'Кусь', 'url' => ['/site/index']],
+                ['label' => 'Вход', 'url' => ['/site/login']]
+
+            ]
+        ]);
+    }else {
+         echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                ['label' => 'Клиенты', 'url' => ['/clients/index']],
+                ['label' => 'Туры', 'url' => ['/tour/index']],
+                ['label' => 'Пользователи', 'url' => ['/user/index']],
+                ['label' => 'Заказы', 'url' => ['/user/order']],
+                ['label' => 'Кусь', 'url' => ['/site/index']],
+
+
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Выйти (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
+                . '</li>']
+         ]);
+    }
     NavBar::end();
     ?>
 
@@ -69,9 +80,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; <?= date('Y') == '2019' ? 'Ситников Арсений' : 'Парамонов Сергей :Р' ?> <?= date('Y') ?></p>
+
     </div>
 </footer>
 

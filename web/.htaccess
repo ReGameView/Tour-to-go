@@ -1,0 +1,6 @@
+RewriteEngine on
+# если файл или директория, отдаём прямо
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# все остальное заворачиваем на index.php
+RewriteRule . index.php
