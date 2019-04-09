@@ -4,18 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\TourSearch */
+/* @var $model app\models\RealPropertySearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="tour-search">
+<div class="real-property-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
@@ -24,7 +21,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'disc') ?>
 
-    <?= $form->field($model, 'stars') ?>
+    <?= $form->field($model, 'stats') ?>
+
+    <?= $form->field($model, 'price') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

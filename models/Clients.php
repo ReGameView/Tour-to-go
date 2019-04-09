@@ -11,6 +11,9 @@ use Yii;
  * @property string $f
  * @property string $i
  * @property string $o
+ * @property string $phone
+ * @property string $address
+ * @property string $email
  */
 class Clients extends \yii\db\ActiveRecord
 {
@@ -28,8 +31,7 @@ class Clients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['f', 'i'], 'required'],
-            [['f', 'i', 'o'], 'string', 'max' => 255],
+            [['f', 'i', 'o', 'phone', 'address', 'email'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,6 +45,9 @@ class Clients extends \yii\db\ActiveRecord
             'f' => 'F',
             'i' => 'I',
             'o' => 'O',
+            'phone' => 'Phone',
+            'address' => 'Address',
+            'email' => 'Email',
         ];
     }
 }

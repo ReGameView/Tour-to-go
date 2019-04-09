@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Tour;
-use app\models\TourSearch;
+use app\models\RealProperty;
+use app\models\RealPropertySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TourController implements the CRUD actions for Tour model.
+ * RealPropertyController implements the CRUD actions for RealProperty model.
  */
-class TourController extends Controller
+class RealPropertyController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class TourController extends Controller
     }
 
     /**
-     * Lists all Tour models.
+     * Lists all RealProperty models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TourSearch();
+        $searchModel = new RealPropertySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class TourController extends Controller
     }
 
     /**
-     * Displays a single Tour model.
+     * Displays a single RealProperty model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class TourController extends Controller
     }
 
     /**
-     * Creates a new Tour model.
+     * Creates a new RealProperty model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Tour();
+        $model = new RealProperty();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class TourController extends Controller
     }
 
     /**
-     * Updates an existing Tour model.
+     * Updates an existing RealProperty model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class TourController extends Controller
     }
 
     /**
-     * Deletes an existing Tour model.
+     * Deletes an existing RealProperty model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class TourController extends Controller
     }
 
     /**
-     * Finds the Tour model based on its primary key value.
+     * Finds the RealProperty model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Tour the loaded model
+     * @return RealProperty the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Tour::findOne($id)) !== null) {
+        if (($model = RealProperty::findOne($id)) !== null) {
             return $model;
         }
 

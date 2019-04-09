@@ -50,7 +50,7 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Клиенты', 'url' => ['/clients/index']],
-                ['label' => 'Туры', 'url' => ['/tour/index']],
+                ['label' => 'Недвижимость', 'url' => ['/realProperty/index']],
                 ['label' => 'Пользователи', 'url' => ['/user/index']],
                 ['label' => 'Заказы', 'url' => ['/user/order']],
                 ['label' => 'Кусь', 'url' => ['/site/index']],

@@ -2,22 +2,21 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\TourSearch */
+/* @var $searchModel app\models\RealPropertySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tours';
+$this->title = 'Real Properties';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tour-index">
+<div class="real-property-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tour', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Real Property', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -29,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'disc',
-            'stars',
+            'stats',
+            'price',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
 </div>

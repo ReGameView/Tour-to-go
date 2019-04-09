@@ -4,19 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Tour */
+/* @var $model app\models\RealProperty */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Tours', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Real Properties', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="tour-view">
+<div class="real-property-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить в корзину', ['add', 'id' => $model->id,], ['class' => "btn btn-success"])?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -33,7 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'disc',
-            'stars',
+            'stats',
+            'price',
         ],
     ]) ?>
 

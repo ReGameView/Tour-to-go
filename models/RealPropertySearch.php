@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Tour;
+use app\models\RealProperty;
 
 /**
- * TourSearch represents the model behind the search form of `app\models\Tour`.
+ * RealPropertySearch represents the model behind the search form of `app\models\RealProperty`.
  */
-class TourSearch extends Tour
+class RealPropertySearch extends RealProperty
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class TourSearch extends Tour
     {
         return [
             [['id'], 'integer'],
-            [['name', 'disc'], 'safe'],
-            [['stars'], 'number'],
+            [['name', 'disc', 'stats'], 'safe'],
+            [['price'], 'number'],
         ];
     }
 
@@ -41,7 +41,7 @@ class TourSearch extends Tour
      */
     public function search($params)
     {
-        $query = Tour::find();
+        $query = RealProperty::find();
 
         // add conditions that should always apply here
 
@@ -60,11 +60,12 @@ class TourSearch extends Tour
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'stars' => $this->stars,
+            'price' => $this->price,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'disc', $this->disc]);
+            ->andFilterWhere(['like', 'disc', $this->disc])
+            ->andFilterWhere(['like', 'stats', $this->stats]);
 
         return $dataProvider;
     }

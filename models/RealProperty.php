@@ -5,21 +5,22 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tour".
+ * This is the model class for table "real_property".
  *
  * @property int $id
  * @property string $name
  * @property string $disc
- * @property double $stars
+ * @property string $stats
+ * @property double $price
  */
-class Tour extends \yii\db\ActiveRecord
+class RealProperty extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tour';
+        return 'real_property';
     }
 
     /**
@@ -28,8 +29,9 @@ class Tour extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['stars'], 'number'],
-            [['name', 'disc'], 'string', 'max' => 255],
+            [['name'], 'required'],
+            [['price'], 'number'],
+            [['name', 'disc', 'stats'], 'string', 'max' => 255],
         ];
     }
 
@@ -42,7 +44,8 @@ class Tour extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'disc' => 'Disc',
-            'stars' => 'Stars',
+            'stats' => 'Stats',
+            'price' => 'Price',
         ];
     }
 }

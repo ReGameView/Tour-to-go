@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ClientsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="clients-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -24,18 +23,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'f',
-            'i',
+            [
+                'attribute' => 'id',
+                'format' => 'text',
+                'label' => 'ID',
+                'headerOptions' => ['width' => '80'],
+            ],
+            [
+                'attribute' => 'f',
+                'format' => 'text',
+                'label' => 'Фамилия',
+                'headerOptions' => ['width' => '150'],
+            ],
+            [
+                'attribute' => 'i',
+                'format' => 'text',
+                'label' => 'Имя',
+                'headerOptions' => ['width' => '150'],
+            ],
             'o',
             'phone',
             //'address',
-            //'email:email',
+            'email:email',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
 </div>
