@@ -42,10 +42,10 @@ class RealProperty extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'disc' => 'Disc',
-            'stats' => 'Stats',
-            'price' => 'Price',
+            'name' => 'Название',
+            'disc' => 'Описание',
+            'stats' => 'Количество звёзд',
+            'price' => 'Цена',
         ];
     }
 }

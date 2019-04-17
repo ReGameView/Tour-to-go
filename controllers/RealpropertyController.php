@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * RealPropertyController implements the CRUD actions for RealProperty model.
  */
-class RealPropertyController extends Controller
+class RealpropertyController extends Controller
 {
     /**
      * {@inheritdoc}

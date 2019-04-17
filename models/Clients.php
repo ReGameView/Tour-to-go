@@ -42,11 +42,11 @@ class Clients extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'f' => 'F',
-            'i' => 'I',
-            'o' => 'O',
-            'phone' => 'Phone',
-            'address' => 'Address',
+            'f' => 'Фамилия',
+            'i' => 'Имя',
+            'o' => 'Отчество',
+            'phone' => 'Телефон',
+            'address' => 'Адрес',
             'email' => 'Email',
         ];
     }

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\RealProperty */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Real Properties', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Недвижимость', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

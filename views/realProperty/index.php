@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RealPropertySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Real Properties';
+$this->title = 'Недвижимость';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="real-property-index">

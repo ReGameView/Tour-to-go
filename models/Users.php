@@ -39,8 +39,8 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
+            'username' => 'Логин',
+            'password' => 'Пароль',
         ];
     }
 }
