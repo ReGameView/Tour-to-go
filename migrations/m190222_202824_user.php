@@ -26,17 +26,17 @@ class m190222_202824_user extends Migration
 
         $this->createTable('clients', [
             'id' => Schema::TYPE_PK,
-            'f' => Schema::TYPE_STRING,
-            'i' => Schema::TYPE_STRING,
-            'o' => Schema::TYPE_STRING,
-            'phone' => Schema::TYPE_STRING,
-            'address' => Schema::TYPE_STRING,
-            'email' => Schema::TYPE_STRING
+            'f' => Schema::TYPE_STRING. " COMMENT 'Фамилия'",
+            'i' => Schema::TYPE_STRING. " COMMENT 'Имя'",
+            'o' => Schema::TYPE_STRING. " COMMENT 'Отчество'",
+            'phone' => Schema::TYPE_STRING. " COMMENT 'Телефон'",
+            'address' => Schema::TYPE_STRING. " COMMENT 'Адрес'",
+            'email' => Schema::TYPE_STRING. " COMMENT 'Email'"
         ]);
 
         $city = ['Глазов', 'Ижевск', 'Сарапул', "Можга", "Камбарка", "Воткинск"];
-        $count = rand(100, 200);
-        for($i = 0; $i < $count; $i++)
+        $countUser = rand(100, 200);
+        for($i = 0; $i < $countUser; $i++)
         {
             $arrayPerson = json_decode(file_get_contents('https://randus.org/api.php'));
             $randCity = $city[random_int(0, count($city) - 1)];
@@ -67,7 +67,7 @@ class m190222_202824_user extends Migration
             'path' => Schema::TYPE_STRING . ' DEFAULT "/img/default/404photo.png"',
         ]);
 
-       /* $this->createIndex('fk_prop_img', 'real_property_img', 'prop_id');
+        /*$this->createIndex('fk_prop_img', 'real_property_img', 'prop_id');
         $this->addForeignKey(
             'fk_prop_img',
             'real_property_img',
@@ -82,14 +82,14 @@ class m190222_202824_user extends Migration
 //        [
 //            'Квартира чистая.'
 //        ];
-        $count = rand(100, 200);
-        for($i = 0; $i < $count; $i++)
+        $countProperty = rand(100, 200);
+        for($i = 0; $i < $countProperty; $i++)
         {
             $arrayPerson = json_decode(file_get_contents('https://randus.org/api.php'));
             $randCity = $city[random_int(0, count($city) - 1)];
 
             $this->insert('real_property',[
-                'name' => $randCity . 'г, ул.' . $arrayPerson->street . ', д.'. $arrayPerson->house .', кв.'. $arrayPerson->apartment,
+                'name' => 'г. '. $randCity .', ул.'. $arrayPerson->street .', д.'. $arrayPerson->house .', кв.'. $arrayPerson->apartment,
                 'disc' => '', // TODO:: придумать что то со страндартными комментариями
                 'stats' => $price = rand(0, 10) / 2,
                 'price' => rand(8000, 12000) + $price * 500,
@@ -104,17 +104,33 @@ class m190222_202824_user extends Migration
         //#0 C:\OSPanel\domains\basic\vendor\yiisoft\yii2\db\Command.php(1295): yii\db\Schema->convertException(Object(PDOException), 'ALTER TABLE `re...')
         $this->createTable('order', [
             'id' => Schema::TYPE_PK,
-            'id_client' => Schema::TYPE_INTEGER,
-            'id_property' => Schema::TYPE_INTEGER,
-            'price' => Schema::TYPE_DOUBLE,
+            'id_client' => Schema::TYPE_INTEGER. " NOT NULL ",
+            'id_property' => Schema::TYPE_INTEGER. " NOT NULL ",
             'comment' => Schema::TYPE_STRING,
-            'id_user' => Schema::TYPE_INTEGER,
-            'created_at' => Schema::TYPE_DATETIME,
+            'id_user' => Schema::TYPE_INTEGER. " NOT NULL ",
+            'created_at' => Schema::TYPE_DATETIME. " NOT NULL ",
             'updated_at' => Schema::TYPE_DATETIME,
             'deleted_at' => Schema::TYPE_DATETIME,
         ]);
 
-
+        $count = rand(50, 100);
+        $arrayProperty = [];
+        for($i = 0; $i < $count; $i++)
+        {
+            $property = rand(0, $countProperty);
+            while(!in_array($property, $arrayProperty))
+                $property = rand(0, $countProperty);
+            $this->insert('order', [
+                'id_client' => rand(2, 5),
+                'id_property' => $property,
+                'comment' => '',
+                'id_user' => rand(0, $countUser),
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+                'deleted_at' => null
+            ]);
+            array_push($arrayProperty, $property);
+        }
     }
 
     /**

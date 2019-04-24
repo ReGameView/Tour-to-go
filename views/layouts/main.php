@@ -40,7 +40,6 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Кусь', 'url' => ['/site/index']],
                 ['label' => 'Вход', 'url' => ['/site/login']]
 
             ]
@@ -52,8 +51,7 @@ AppAsset::register($this);
                 ['label' => 'Клиенты', 'url' => ['/clients/index']],
                 ['label' => 'Недвижимость', 'url' => ['/realproperty/index']],
                 ['label' => 'Пользователи', 'url' => ['/user/index']],
-                ['label' => 'Заказы', 'url' => ['/user/order']],
-                ['label' => 'Кусь', 'url' => ['/site/index']],
+                ['label' => 'Заказы', 'url' => ['/order/index']],
 
 
                 '<li>'
