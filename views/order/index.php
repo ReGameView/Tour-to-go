@@ -23,12 +23,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'attribute' => 'id',
+                'format' => 'text',
+                'label' => 'ID',
+                'headerOptions' => ['width' => '80'],
+            ],
+            [
+                'attribute' => 'id_client',
+                'format' => 'text',
+                'label' => 'Клиент',
+//                'value' => function (\app\models\Order $data) {
+//                    var_dump($data);
+//                    return Html::a(Html::encode($data->f . $data->i . $data->o), Url::to(['view', 'id' => $data->id]));
+//                },
+            ],
             'id_client',
             'id_property',
-            'price',
+//            'price',
             'comment',
             //'id_user',
             //'created_at',

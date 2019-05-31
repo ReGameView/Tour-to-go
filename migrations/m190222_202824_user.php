@@ -108,28 +108,30 @@ class m190222_202824_user extends Migration
             'id_property' => Schema::TYPE_INTEGER. " NOT NULL ",
             'comment' => Schema::TYPE_STRING,
             'id_user' => Schema::TYPE_INTEGER. " NOT NULL ",
-            'created_at' => Schema::TYPE_DATETIME. " NOT NULL ",
+            'created_at' => Schema::TYPE_DATETIME. " NOT NULL DEFAULT CURRENT_TIMESTAMP",
             'updated_at' => Schema::TYPE_DATETIME,
             'deleted_at' => Schema::TYPE_DATETIME,
         ]);
 
-        $count = rand(50, 100);
+        $count = rand(5, 20);
         $arrayProperty = [];
         for($i = 0; $i < $count; $i++)
         {
             $property = rand(0, $countProperty);
             while(!in_array($property, $arrayProperty))
+            {
                 $property = rand(0, $countProperty);
-            $this->insert('order', [
-                'id_client' => rand(2, 5),
-                'id_property' => $property,
-                'comment' => '',
-                'id_user' => rand(0, $countUser),
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s"),
-                'deleted_at' => null
-            ]);
-            array_push($arrayProperty, $property);
+                $this->insert('order', [
+                    'id_client' => rand(2, 5),
+                    'id_property' => $property,
+                    'comment' => '',
+                    'id_user' => rand(0, $countUser),
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s"),
+                    'deleted_at' => null
+                ]);
+                array_push($arrayProperty, $property);
+            }
         }
     }
 
@@ -138,8 +140,11 @@ class m190222_202824_user extends Migration
      */
     public function safeDown()
     {
-        echo "m190222_202824_user cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('user');
+        $this->dropTable('clients');
+        $this->dropTable('real_property');
+        $this->dropTable('real_property_images');
+        $this->dropTable('order');
+        return true;
     }
 }

@@ -18,7 +18,7 @@ class OrderSearch extends Order
     {
         return [
             [['id', 'id_client', 'id_property', 'id_user'], 'integer'],
-            [['price'], 'number'],
+//            [['price'], 'number'],
             [['comment', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
@@ -62,7 +62,7 @@ class OrderSearch extends Order
             'id' => $this->id,
             'id_client' => $this->id_client,
             'id_property' => $this->id_property,
-            'price' => $this->price,
+//            'price' => $this->price,
             'id_user' => $this->id_user,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

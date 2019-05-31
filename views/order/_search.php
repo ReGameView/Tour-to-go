@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_property') ?>
 
-    <?= $form->field($model, 'price') ?>
+<!--    --><?//= $form->field($model, 'price') ?>
 
     <?= $form->field($model, 'comment') ?>
 

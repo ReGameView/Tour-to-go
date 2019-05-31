@@ -34,7 +34,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['id_client', 'id_property', 'id_user'], 'integer'],
-            [['price'], 'number'],
+//            [['price'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['comment'], 'string', 'max' => 255],
         ];
@@ -49,7 +49,7 @@ class Order extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_client' => 'ID Клиента',
             'id_property' => 'ID Недвижимости',
-            'price' => 'Цена',
+//            'price' => 'Цена',
             'comment' => 'Комментарий',
             'id_user' => 'ID Сотрудника',
             'created_at' => 'Дата создания',
