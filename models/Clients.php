@@ -48,6 +48,21 @@ class Clients extends \yii\db\ActiveRecord
             'phone' => 'Телефон',
             'address' => 'Адрес',
             'email' => 'Email',
+            'fullName' => 'Имя клиента'
         ];
+    }
+
+    public function getFullName()
+    {
+        return $this->f . " " . $this->i . " " . $this->o;
+    }
+
+    public function getProperty()
+    {
+//        return $this->hasMany(Order::className(), [''])
+    }
+    public function getOrders()
+    {
+        return $this->hasMany(Order::className(), ['id_client' => 'id']);
     }
 }

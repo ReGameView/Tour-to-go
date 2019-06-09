@@ -2,11 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+/* @var $clients app\models\Clients             */
+/* @var $realProperty app\models\RealProperty   */
 $this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,22 +33,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'id_client',
-                'format' => 'text',
+                'format' => 'html',
                 'label' => 'Клиент',
-//                'value' => function (\app\models\Order $data) {
-//                    var_dump($data);
-//                    return Html::a(Html::encode($data->f . $data->i . $data->o), Url::to(['view', 'id' => $data->id]));
-//                },
+                'value' => function (\app\models\Order $data) {
+//                        return $data->client->getFullName();
+                    return Html::a(Html::encode($data->client->getFullName()), Url::to(['clients/view', 'id' => $data->client->id]));
+                },
+                //FIXME:: ПОФИКСИТЬ ФИЛЬТР
             ],
-            'id_client',
-            'id_property',
-//            'price',
-            'comment',
-            //'id_user',
-            //'created_at',
-            //'updated_at',
-            //'deleted_at',
-
+            [
+                'attribute' => 'id_property',
+                'format' => 'html',
+                'label' => 'Адрес',
+                'value' => function (\app\models\Order $data) {
+//                        return $data->client->getFullName();
+                    return Html::a(Html::encode($data->property->name), Url::to(['realproperty/view', 'id' => $data->property->id]));
+                },
+                //FIXME:: ПОФИКСИТЬ ФИЛЬТР
+            ],
+            [
+                'attribute' => 'comment',
+                'format' => 'text',
+                'label' => 'Комментарий',
+                'filter' => false,
+                'headerOptions' => ['width' => '200'],
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

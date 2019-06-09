@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Clients;
 use app\models\ClientsSearch;
+use app\models\OrderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,8 +53,15 @@ class ClientsController extends Controller
      */
     public function actionView($id)
     {
+        $client = Clients::findOne($id);
+
+        $searchModel = new OrderSearch();
+        $dataProvider = $searchModel->search(['OrderSearch' => ["id_client" => $id]]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $client,
+            '$searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
         ]);
     }
 

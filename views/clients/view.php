@@ -1,12 +1,17 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\OrderSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $model app\models\Clients */
 
-$this->title = $model->f . ' ' . $model->i . ' ' . $model->o;
+$this->title = $model->getFullName();
 $this->params['breadcrumbs'][] = ['label' => 'Клиенты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -38,5 +43,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
         ],
     ]) ?>
-
+    <h2>Заказы</h2>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            'id',
+            [
+                'attribute' => 'id_property',
+                'format' => 'html',
+                'label' => 'Адрес',
+                'value' => function (\app\models\Order $data) {
+//                        return $data->client->getFullName();
+                    return Html::a(Html::encode($data->property->name), Url::to(['realproperty/view', 'id' => $data->property->id]));
+                },
+                //FIXME:: ПОФИКСИТЬ ФИЛЬТР
+            ],
+        ],
+    ]); ?>
 </div>

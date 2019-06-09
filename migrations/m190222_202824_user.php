@@ -35,7 +35,7 @@ class m190222_202824_user extends Migration
         ]);
 
         $city = ['Глазов', 'Ижевск', 'Сарапул', "Можга", "Камбарка", "Воткинск"];
-        $countUser = rand(100, 200);
+        $countUser = rand(10, 50);
         for($i = 0; $i < $countUser; $i++)
         {
             $arrayPerson = json_decode(file_get_contents('https://randus.org/api.php'));
@@ -45,7 +45,7 @@ class m190222_202824_user extends Migration
                 'i' => $arrayPerson->fname,
                 'o' => $arrayPerson->patronymic,
                 'phone' => $arrayPerson->phone,
-                'address' => $randCity . 'г, ул.' . $arrayPerson->street . ', д.'. $arrayPerson->house .', кв.'. $arrayPerson->apartment,
+                'address' => 'г. ' .$randCity .', ул.' . $arrayPerson->street . ', д.'. $arrayPerson->house .', кв.'. $arrayPerson->apartment,
                 'email' => $arrayPerson->login . '@mail.ru'
             ]);
         }
@@ -82,7 +82,7 @@ class m190222_202824_user extends Migration
 //        [
 //            'Квартира чистая.'
 //        ];
-        $countProperty = rand(100, 200);
+        $countProperty = rand(5, 50);
         for($i = 0; $i < $countProperty; $i++)
         {
             $arrayPerson = json_decode(file_get_contents('https://randus.org/api.php'));
@@ -98,10 +98,6 @@ class m190222_202824_user extends Migration
             ]);
         }
 
-        //FIXME:: ПОСМОТРИ!!
-        //create index fk_prop_img on real_property_img (prop_id) ...Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'yii2basic.real_property_img' doesn't exist
-        //The SQL being executed was: ALTER TABLE `real_property_img` ADD INDEX `fk_prop_img` (`prop_id`) (C:\OSPanel\domains\basic\vendor\yiisoft\yii2\db\Schema.php:664)
-        //#0 C:\OSPanel\domains\basic\vendor\yiisoft\yii2\db\Command.php(1295): yii\db\Schema->convertException(Object(PDOException), 'ALTER TABLE `re...')
         $this->createTable('order', [
             'id' => Schema::TYPE_PK,
             'id_client' => Schema::TYPE_INTEGER. " NOT NULL ",
@@ -112,15 +108,17 @@ class m190222_202824_user extends Migration
             'updated_at' => Schema::TYPE_DATETIME,
             'deleted_at' => Schema::TYPE_DATETIME,
         ]);
+        $this->addForeignKey('FK_order_clients', 'order', 'id_client', 'clients', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('FK_order_property', 'order', 'id_property', 'real_property', 'id', 'CASCADE', 'CASCADE');
 
         $count = rand(5, 20);
         $arrayProperty = [];
-        for($i = 0; $i < $count; $i++)
+        for($i = 1; $i < $count; $i++)
         {
-            $property = rand(0, $countProperty);
+            $property = rand(0, $countProperty - 1);
             while(!in_array($property, $arrayProperty))
             {
-                $property = rand(0, $countProperty);
+                $property = rand(1, $countProperty);
                 $this->insert('order', [
                     'id_client' => rand(2, 5),
                     'id_property' => $property,
@@ -140,6 +138,9 @@ class m190222_202824_user extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('FK_order_clients', 'order');
+        $this->dropForeignKey('order_property', 'order');
+
         $this->dropTable('user');
         $this->dropTable('clients');
         $this->dropTable('real_property');
