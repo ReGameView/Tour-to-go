@@ -8,12 +8,18 @@ use Yii;
  * This is the model class for table "clients".
  *
  * @property int $id
- * @property string $f
- * @property string $i
- * @property string $o
- * @property string $phone
- * @property string $address
- * @property string $email
+ * @property int $id_user
+ * @property string $f Фамилия
+ * @property string $i Имя
+ * @property string $o Отчество
+ * @property string $phone Телефон
+ * @property string $city
+ * @property string $area
+ * @property string $street
+ * @property string $house
+ * @property string $floor
+ * @property string $apartment
+ * @property string $email Email
  */
 class Clients extends \yii\db\ActiveRecord
 {
@@ -31,7 +37,9 @@ class Clients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['f', 'i', 'o', 'phone', 'address', 'email'], 'string', 'max' => 255],
+            [['id_user'], 'integer'],
+            [['city', 'street', 'house'], 'required'],
+            [['f', 'i', 'o', 'phone', 'city', 'area', 'street', 'house', 'floor', 'apartment', 'email'], 'string', 'max' => 255],
         ];
     }
 
@@ -42,13 +50,18 @@ class Clients extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'id_user' => 'Индификатор пользователя',
             'f' => 'Фамилия',
             'i' => 'Имя',
             'o' => 'Отчество',
             'phone' => 'Телефон',
-            'address' => 'Адрес',
+            'city' => 'Город',
+            'area' => 'Район',
+            'street' => 'Улица',
+            'house' => 'Дом',
+            'floor' => 'Этаж',
+            'apartment' => 'Квартира',
             'email' => 'Email',
-            'fullName' => 'Имя клиента'
         ];
     }
 

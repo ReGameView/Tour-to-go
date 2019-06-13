@@ -11,7 +11,7 @@ class RbacController extends Controller
         $auth = Yii::$app->authManager;
         $auth->removeAll();
 
-        $role = ['root' => '', 'admin' => '', 'operator' => '', 'smallOperator' => ''];
+        $role = ['root' => '', 'admin' => '', ];
         $table = ['user', 'clients', 'orders', 'tour'];
         $permission = ['create', 'read', 'update', 'delete', 'hard_delete'];
         $tablePermission = [];

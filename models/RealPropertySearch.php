@@ -17,8 +17,8 @@ class RealPropertySearch extends RealProperty
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'disc', 'stats'], 'safe'],
+            [['id', 'id_type', 'count'], 'integer'],
+            [['city', 'area', 'street', 'house', 'floor', 'apartment', 'disc', 'type', 'per'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -60,12 +60,20 @@ class RealPropertySearch extends RealProperty
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_type' => $this->id_type,
             'price' => $this->price,
+            'count' => $this->count,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'city', $this->city])
+            ->andFilterWhere(['like', 'area', $this->area])
+            ->andFilterWhere(['like', 'street', $this->street])
+            ->andFilterWhere(['like', 'house', $this->house])
+            ->andFilterWhere(['like', 'floor', $this->floor])
+            ->andFilterWhere(['like', 'apartment', $this->apartment])
             ->andFilterWhere(['like', 'disc', $this->disc])
-            ->andFilterWhere(['like', 'stats', $this->stats]);
+            ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'per', $this->per]);
 
         return $dataProvider;
     }

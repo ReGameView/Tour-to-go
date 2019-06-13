@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Users;
 
 /**
- * UserSearch represents the model behind the search form of `app\models\Users`.
+ * UserSearch represents the model behind the search form of `app\models\User`.
  */
 class UserSearch extends Users
 {
@@ -18,7 +18,7 @@ class UserSearch extends Users
     {
         return [
             [['id'], 'integer'],
-            [['username', 'password'], 'safe'],
+            [['username', 'password', 'role'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class UserSearch extends Users
      */
     public function search($params)
     {
-        $query = Users::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 
@@ -62,7 +62,8 @@ class UserSearch extends Users
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password]);
+            ->andFilterWhere(['like', 'password', $this->password])
+            ->andFilterWhere(['like', 'role', $this->role]);
 
         return $dataProvider;
     }

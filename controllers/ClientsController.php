@@ -132,4 +132,16 @@ class ClientsController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionQuery()
+    {
+
+        if($_POST['search'] == true)
+        {
+
+        }else{
+            return $this->render('query');
+        }
+
+    }
 }

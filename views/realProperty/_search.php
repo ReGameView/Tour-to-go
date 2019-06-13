@@ -17,13 +17,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'id_type') ?>
 
-    <?= $form->field($model, 'disc') ?>
+    <?= $form->field($model, 'city') ?>
 
-    <?= $form->field($model, 'stats') ?>
+    <?= $form->field($model, 'area') ?>
 
-    <?= $form->field($model, 'price') ?>
+    <?= $form->field($model, 'street') ?>
+
+    <?php // echo $form->field($model, 'house') ?>
+
+    <?php // echo $form->field($model, 'floor') ?>
+
+    <?php // echo $form->field($model, 'apartment') ?>
+
+    <?php // echo $form->field($model, 'disc') ?>
+
+    <?php // echo $form->field($model, 'type') ?>
+
+    <?php // echo $form->field($model, 'price') ?>
+
+    <?php // echo $form->field($model, 'per') ?>
+
+    <?php // echo $form->field($model, 'count') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

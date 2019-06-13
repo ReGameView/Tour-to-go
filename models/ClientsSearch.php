@@ -17,8 +17,8 @@ class ClientsSearch extends Clients
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['f', 'i', 'o', 'phone', 'address', 'email'], 'safe'],
+            [['id', 'id_user'], 'integer'],
+            [['f', 'i', 'o', 'phone', 'city', 'area', 'street', 'house', 'floor', 'apartment', 'email'], 'safe'],
         ];
     }
 
@@ -59,13 +59,19 @@ class ClientsSearch extends Clients
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_user' => $this->id_user,
         ]);
 
         $query->andFilterWhere(['like', 'f', $this->f])
             ->andFilterWhere(['like', 'i', $this->i])
             ->andFilterWhere(['like', 'o', $this->o])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'city', $this->city])
+            ->andFilterWhere(['like', 'area', $this->area])
+            ->andFilterWhere(['like', 'street', $this->street])
+            ->andFilterWhere(['like', 'house', $this->house])
+            ->andFilterWhere(['like', 'floor', $this->floor])
+            ->andFilterWhere(['like', 'apartment', $this->apartment])
             ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;

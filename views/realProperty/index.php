@@ -16,12 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создание недвижимости', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать запись', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => 'Показано {begin} из {end}',
         'columns' => [
             [
                 'attribute' => 'id',
@@ -29,11 +30,52 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'ID',
                 'headerOptions' => ['width' => '80'],
             ],
-            'name',
+            [
+                'attribute' => 'id_type',
+                'format' => 'text',
+                'label' => 'Тип',
+                'headerOptions' => ['width' => '150'],
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    return 1;
+                }
+            ],
+            [
+                'attribute' => 'city',
+                'format' => 'text',
+                'label' => 'Адрес',
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    return $data->fullAddress;
+                }
+            ],
             'disc',
-            'stats',
-            'price',
-
+            [
+                'attribute' => 'type',
+                'format' => 'text',
+                'label' => 'Тип продажи',
+                'headerOptions' => ['width' => '150'],
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    if($data->id_type == 1)
+                        return $data->type;
+                    else
+                        return "Продажа";
+                }
+            ],
+            [
+                'attribute' => 'price',
+                'format' => 'text',
+                'label' => 'Цена',
+                'headerOptions' => ['width' => '150'],
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    if($data->per != "")
+                        return $data->price . " за " . $data->count . " " . $data->per;
+                    else
+                        return $data->price;
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

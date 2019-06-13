@@ -8,10 +8,18 @@ use Yii;
  * This is the model class for table "real_property".
  *
  * @property int $id
- * @property string $name
+ * @property int $id_type
+ * @property string $city
+ * @property string $area
+ * @property string $street
+ * @property string $house
+ * @property string $floor
+ * @property string $apartment
  * @property string $disc
- * @property string $stats
+ * @property string $type
  * @property double $price
+ * @property string $per
+ * @property int $count
  */
 class RealProperty extends \yii\db\ActiveRecord
 {
@@ -29,9 +37,11 @@ class RealProperty extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['id_type', 'city', 'street', 'house'], 'required'],
+            [['id_type', 'count'], 'integer'],
+            [['type'], 'string'],
             [['price'], 'number'],
-            [['name', 'disc', 'stats'], 'string', 'max' => 255],
+            [['city', 'area', 'street', 'house', 'floor', 'apartment', 'disc', 'per'], 'string', 'max' => 255],
         ];
     }
 
@@ -42,10 +52,26 @@ class RealProperty extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
+            'id_type' => 'Индификатор типа',
+            'city' => 'Город',
+            'area' => 'Район',
+            'street' => 'Улица',
+            'house' => 'Дом',
+            'floor' => 'Этаж',
+            'apartment' => 'Квартира',
             'disc' => 'Описание',
-            'stats' => 'Количество звёзд',
+            'type' => 'Тип', // Продажа/Аренда
             'price' => 'Цена',
+            'per' => 'За какое кол-во времени',
+            'count' => 'Кол-во per',
         ];
+    }
+
+    public function getFullAddress()
+    {
+        $area = "";
+        if($this->area != NULL)
+            $area = " район " . $this->area;
+        return "г. ". $this->city . $area . " ул.".$this->street. " д." .$this->house . " кв." . $this->apartment;
     }
 }

@@ -10,14 +10,11 @@ use Yii;
  * @property int $id
  * @property int $id_client
  * @property int $id_property
- * @property string $comment
  * @property int $id_user
+ * @property string $comment
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
- *
- * @property Clients $client
- * @property RealProperty $property
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -39,8 +36,6 @@ class Order extends \yii\db\ActiveRecord
             [['id_client', 'id_property', 'id_user'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['comment'], 'string', 'max' => 255],
-            [['id_client'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::className(), 'targetAttribute' => ['id_client' => 'id']],
-            [['id_property'], 'exist', 'skipOnError' => true, 'targetClass' => RealProperty::className(), 'targetAttribute' => ['id_property' => 'id']],
         ];
     }
 
@@ -53,11 +48,11 @@ class Order extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_client' => 'Индификатор клиента',
             'id_property' => 'Индификатор недвижимости',
-            'comment' => 'Комментарий',
-            'id_user' => 'Индификатор пользователя',
-            'created_at' => 'Время создания',
-            'updated_at' => 'Время последнего обновления',
-            'deleted_at' => 'Время удаление',
+            'id_user' => 'Инидификатор оператора',
+            'comment' => 'Комментарий к заказу',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата обновления',
+            'deleted_at' => 'Дата удаления',
         ];
     }
 

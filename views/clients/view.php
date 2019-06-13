@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('Создать пользователя для сайта', ['createUsers', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -35,11 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'id_user',
             'f',
             'i',
             'o',
             'phone',
-            'address',
+            'city',
+            'area',
+            'street',
+            'house',
+            'floor',
+            'apartment',
             'email:email',
         ],
     ]) ?>
@@ -55,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Адрес',
                 'value' => function (\app\models\Order $data) {
 //                        return $data->client->getFullName();
-                    return Html::a(Html::encode($data->property->name), Url::to(['realproperty/view', 'id' => $data->property->id]));
+                    return Html::a(Html::encode($data->property->fullAddress), Url::to(['realproperty/view', 'id' => $data->property->id]));
                 },
                 //FIXME:: ПОФИКСИТЬ ФИЛЬТР
             ],

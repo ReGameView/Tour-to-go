@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Тур В Путь!',
+        'brandLabel' => 'Недвижимость',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -67,21 +67,32 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container-fluid">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'homeLink' => [
+                'label' => 'Главная ',
+                'url' => Yii::$app->homeUrl,
+                'title' => 'Главная',
+            ]
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
-    </div>
-</div>
+        </div>
+        <div class="col-sm-1"></div>
 
+    </div>
+
+</div>
 <footer class="footer">
     <div class="container">
-
         <p class="pull-left">&copy; <?= date('Y') == '2019' ? 'Ситников Арсений' : 'Парамонов Сергей :Р' ?> <?= date('Y') ?></p>
 
     </div>
+
 </footer>
 
 <?php $this->endBody() ?>

@@ -12,6 +12,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'id_user')->textInput() ?>
+
     <?= $form->field($model, 'f')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'i')->textInput(['maxlength' => true]) ?>
@@ -20,7 +22,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'area')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'house')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'floor')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'apartment')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

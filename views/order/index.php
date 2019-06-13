@@ -9,6 +9,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $clients app\models\Clients             */
 /* @var $realProperty app\models\RealProperty   */
+
 $this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Адрес',
                 'value' => function (\app\models\Order $data) {
 //                        return $data->client->getFullName();
-                    return Html::a(Html::encode($data->property->name), Url::to(['realproperty/view', 'id' => $data->property->id]));
+                    return Html::a(Html::encode($data->property->fullAddress), Url::to(['realproperty/view', 'id' => $data->property->id]));
                 },
                 //FIXME:: ПОФИКСИТЬ ФИЛЬТР
             ],

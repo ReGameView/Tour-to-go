@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RealProperty */
 
-$this->title = 'Создание записи о недвижимости';
+$this->title = 'Создание записи';
 $this->params['breadcrumbs'][] = ['label' => 'Недвижимость', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

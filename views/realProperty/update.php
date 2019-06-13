@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RealProperty */
 
-$this->title = 'Обновить недвижимость: ' . $model->name;
+$this->title = 'Обновление недвижимости: ' . $model->getFullAddress();
 $this->params['breadcrumbs'][] = ['label' => 'Недвижимость', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Обновление недвижимости';
 ?>
 <div class="real-property-update">
 
