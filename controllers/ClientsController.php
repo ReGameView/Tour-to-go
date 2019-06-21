@@ -179,7 +179,6 @@ class ClientsController extends Controller
     public function actionCreateu($id)
     {
         $model = new Users();
-//        var_dump($_POST['client']); exit;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $modelClient = Clients::find()->where(['id' => $_POST['client']])->one();
             $modelClient->id_user = $model->id;
@@ -189,7 +188,8 @@ class ClientsController extends Controller
         $client = true;
         return $this->render('createu', [
             'model' => $model,
-            'idClient' => $id
+            'idClient' => $id,
+            'client' => Clients::find()->where(['id' => $id])->one(),
         ]);
     }
 }

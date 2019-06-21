@@ -169,7 +169,7 @@ class m190222_202824_user extends Migration
                 'street' => $arrayPerson->street,
                 'house' => $arrayPerson->house,
                 'floor' => "",
-                'apartment' => $randType != 1 ? $arrayPerson->apartment : "",
+                'apartment' => $randType == 1 ? $arrayPerson->apartment : "",
                 'disc' => $comment,
                 'type' => $randPrice,
                 'price' => ($randPrice == "Продажа" ? 500 : 1) * (rand(8000, 12000) + ($countApartament * 5) * 500),
@@ -196,7 +196,7 @@ class m190222_202824_user extends Migration
                     'id_client' => rand(1, $countUser),
                     'id_property' => $property,
                     'comment' => '',
-                    'id_user' => rand(1, $j),
+                    'id_user' => 1,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s"),
                     'deleted_at' => null

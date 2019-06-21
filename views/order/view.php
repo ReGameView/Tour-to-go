@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Order */
 
-$this->title = $model->id;
+$this->title = "Заказ клиента: " . $model->client->fullName;
 $this->params['breadcrumbs'][] = ['label' => 'Заказ', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -34,14 +35,29 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'attributes' => [
             'id',
-            'id_client',
-            'id_property',
+            [
+                'attribute' => 'id_property',
+                'format' => 'html',
+                'label' => 'Клиент',
+                'value' => function (\app\models\Order $data) {
+//                        return $data->client->getFullName();
+                    return Html::a(Html::encode($data->client->fullName), Url::to(['clients/view', 'id' => $data->client->id]));
+                },
+            ],
+            [
+                'attribute' => 'id_property',
+                'format' => 'html',
+                'label' => 'Адрес',
+                'value' => function (\app\models\Order $data) {
+//                        return $data->client->getFullName();
+                    return Html::a(Html::encode($data->property->fullAddress), Url::to(['realproperty/view', 'id' => $data->property->id]));
+                },
+            ],
 //            'price',
             'comment',
-            'id_user',
+            'user.username',
             'created_at',
             'updated_at',
-            'deleted_at',
         ],
     ]) ?>
 

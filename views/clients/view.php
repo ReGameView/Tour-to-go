@@ -80,7 +80,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //                        return $data->client->getFullName();
                     return Html::a(Html::encode($data->property->fullAddress), Url::to(['realproperty/view', 'id' => $data->property->id]));
                 },
-                //FIXME:: ПОФИКСИТЬ ФИЛЬТР
             ],
         ],
     ]); ?>

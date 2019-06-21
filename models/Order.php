@@ -53,6 +53,8 @@ class Order extends \yii\db\ActiveRecord
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата обновления',
             'deleted_at' => 'Дата удаления',
+            'client.fullName' => 'Клиент',
+            'property.fullAddress' => 'Адрес недвижимости'
         ];
     }
 
@@ -75,8 +77,8 @@ class Order extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClients()
+    public function getUser()
     {
-        return $this->hasMany(Clients::className(), ['id' => 'id_client']);
+        return $this->hasOne(Users::className(), ['id' => 'id_user']);
     }
 }
