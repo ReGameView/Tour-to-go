@@ -28,9 +28,9 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username'], 'required'],
+            [['username', 'password'], 'required', 'message' => 'Это поле обязательно к заполнению'],
             [['role'], 'string'],
-            [['username', 'password'], 'string', 'max' => 255],
+            [['username', 'password'], 'string', 'max' => 255, 'message' => 'Максимальное количество символов 255'],
         ];
     }
 

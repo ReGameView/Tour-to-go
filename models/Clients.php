@@ -37,9 +37,9 @@ class Clients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user'], 'integer'],
-            [['city', 'street', 'house'], 'required'],
-            [['f', 'i', 'o', 'phone', 'city', 'area', 'street', 'house', 'floor', 'apartment', 'email'], 'string', 'max' => 255],
+            [['id_user'], 'integer', 'message' => 'Это поле должно быть числом'],
+            [['city', 'street', 'house'], 'required', 'message' => 'Это поле обязательно к заполнению'],
+            [['f', 'i', 'o', 'phone', 'city', 'area', 'street', 'house', 'floor', 'apartment', 'email'], 'string', 'max' => 255, 'message' => 'Максимальное количество символов 255'],
         ];
     }
 
@@ -70,12 +70,18 @@ class Clients extends \yii\db\ActiveRecord
         return $this->f . " " . $this->i . " " . $this->o;
     }
 
-    public function getProperty()
-    {
+//    public function getProperty()
+//    {
 //        return $this->hasMany(Order::className(), [''])
-    }
+//    }
+
     public function getOrders()
     {
         return $this->hasMany(Order::className(), ['id_client' => 'id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'id_user']);
     }
 }

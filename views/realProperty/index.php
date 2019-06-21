@@ -22,33 +22,63 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'summary' => 'Показано {begin} из {end}',
+        'summary' => '',
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'columns' => [
             [
                 'attribute' => 'id',
                 'format' => 'text',
                 'label' => 'ID',
-                'headerOptions' => ['width' => '80'],
+                'headerOptions' => ['width' => '60'],
             ],
             [
                 'attribute' => 'id_type',
                 'format' => 'text',
                 'label' => 'Тип',
-                'headerOptions' => ['width' => '150'],
-                'value' => function(\app\models\RealProperty $data)
-                {
-                    return 1;
-                }
+                'headerOptions' => ['width' => '100'],
+                'value' => 'typepr.title',
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\TypeProperty::find()->asArray()->all(), 'id', 'title'),
+
             ],
             [
                 'attribute' => 'city',
                 'format' => 'text',
-                'label' => 'Адрес',
+                'label' => 'Город',
                 'value' => function(\app\models\RealProperty $data)
                 {
-                    return $data->fullAddress;
+                    return $data->city;
+                },
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\RealProperty::find()->asArray()->all(), 'city', 'city'),
+            ],
+            [
+                'attribute' => 'street',
+                'format' => 'text',
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    return $data->street;
                 }
             ],
+            [
+                'attribute' => 'house',
+                'format' => 'text',
+                'headerOptions' => ['width' => '80'],
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    return $data->house;
+                }
+            ],
+            [
+                'attribute' => 'apartment',
+                'format' => 'text',
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    return $data->apartment;
+                }
+            ],
+
             'disc',
             [
                 'attribute' => 'type',
@@ -57,11 +87,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['width' => '150'],
                 'value' => function(\app\models\RealProperty $data)
                 {
-                    if($data->id_type == 1)
-                        return $data->type;
-                    else
-                        return "Продажа";
-                }
+                    return $data->type;
+                },
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\RealProperty::find()->asArray()->all(), 'type', 'type'),
             ],
             [
                 'attribute' => 'price',
@@ -76,7 +104,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $data->price;
                 }
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'delete' => function($url, $data){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['realproperty/delete', 'id' => $data->id], [
+                            'data' => [
+                                'confirm' => Yii::t('app', 'Вы действительно хотите удалить?'),
+                                'method' => 'post',
+                            ],
+                        ]);
+                    }
+                ]
+            ],
         ],
     ]); ?>
 </div>

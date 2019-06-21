@@ -32,10 +32,10 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_client', 'id_property', 'id_user'], 'required'],
-            [['id_client', 'id_property', 'id_user'], 'integer'],
+            [['id_client', 'id_property', 'id_user'], 'required', 'message' => 'Это поле обязательно к заполнению'],
+            [['id_client', 'id_property', 'id_user'], 'integer', 'message' => 'Это поле должно быть числом'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['comment'], 'string', 'max' => 255],
+            [['comment'], 'string', 'max' => 255, 'message' => 'Максимальное количество символов 255'],
         ];
     }
 

@@ -25,6 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => '',
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'columns' => [
             [
                 'attribute' => 'id',
@@ -33,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['width' => '80'],
             ],
             [
-                'attribute' => 'id_client',
+                'attribute' => 'client.fullName',
                 'format' => 'html',
                 'label' => 'Клиент',
                 'value' => function (\app\models\Order $data) {
@@ -43,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //FIXME:: ПОФИКСИТЬ ФИЛЬТР
             ],
             [
-                'attribute' => 'id_property',
+                'attribute' => 'property.fullAddress',
                 'format' => 'html',
                 'label' => 'Адрес',
                 'value' => function (\app\models\Order $data) {
@@ -59,7 +64,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => false,
                 'headerOptions' => ['width' => '200'],
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'delete' => function($url, $data){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['order/delete', 'id' => $data->id], [
+                            'data' => [
+                                'confirm' => Yii::t('app', 'Вы действительно хотите удалить?'),
+                                'method' => 'post',
+                            ],
+                        ]);
+                    }
+                ]
+            ],
         ],
     ]); ?>
 </div>

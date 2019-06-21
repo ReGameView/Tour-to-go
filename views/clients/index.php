@@ -17,13 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Создание клиента', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Создать запрос', ['query'], ['class' => 'btn btn-primary']) ?>
+<!--        --><?//= Html::a('Создать запрос', ['query'], ['class' => 'btn btn-primary']) ?>
 
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => '',
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'columns' => [
             [
                 'attribute' => 'id',
@@ -51,6 +56,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'delete' => function($url, $data){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['clients/delete', 'id' => $data->id], [
+                            'data' => [
+                                'confirm' => Yii::t('app', 'Вы действительно хотите удалить?'),
+                                'method' => 'post',
+                            ],
+                        ]);
+                    }
+                ]
             ],
         ],
     ]); ?>

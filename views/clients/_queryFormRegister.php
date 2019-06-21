@@ -17,8 +17,6 @@ use yii\widgets\ActiveForm;
 
 <div class="clients-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'id_client')->dropDownList($clients) ?>
     <?= $form->field($model, 'id_type')->dropDownList($typeProperty)  ?>
     <?= $form->field($model, 'city') ?>
     <?= $form->field($model, 'street') ?>
@@ -35,6 +33,5 @@ use yii\widgets\ActiveForm;
     <div class="form-group">
         <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
     </div>
-    <?php ActiveForm::end(); ?>
 
 </div>

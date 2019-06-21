@@ -2,13 +2,21 @@
 
 namespace app\controllers;
 
+use app\models\Order;
+use app\models\QueryClients;
+use app\models\RealProperty;
+use app\models\TypeProperty;
 use Yii;
 use app\models\Clients;
 use app\models\ClientsSearch;
 use app\models\OrderSearch;
+use app\models\Users;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Request;
+
 
 /**
  * ClientsController implements the CRUD actions for Clients model.
@@ -113,7 +121,6 @@ class ClientsController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -135,13 +142,54 @@ class ClientsController extends Controller
 
     public function actionQuery()
     {
+        $clients = Clients::find()->select(['id', 'f', 'i', 'o'])->all();
+        $clients = ArrayHelper::map($clients, 'id', 'fullName');
+        $typeProperty = TypeProperty::find()->select(['id', 'title'])->all();
+        $typeProperty = ArrayHelper::map($typeProperty, 'id', 'title');
 
-        if($_POST['search'] == true)
+        $model = new QueryClients();
+        $clientModel = new Users();
+        if(Yii::$app->request->getBodyParam('new_user') == 1)
         {
+            if($clientModel->load(Yii::$app->request->post()) && $clientModel->save())
+            {
+                if($model->load(Yii::$app->request->post()) && $model->save())
+                {
+                    return $this->redirect(['search', 'id' => $model->id]);
+                }
 
-        }else{
-            return $this->render('query');
+            }
+        }else
+        {
+            if($model->load(Yii::$app->request->post()) && $model->save())
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
+
+        return $this->render('query', [
+            'model' => $model,
+            'clients' => $clients,
+            'typeProperty' => $typeProperty,
+            'clientModel' => $clientModel
+        ]);
+    }
+
+    public function actionCreateu($id)
+    {
+        $model = new Users();
+//        var_dump($_POST['client']); exit;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $modelClient = Clients::find()->where(['id' => $_POST['client']])->one();
+            $modelClient->id_user = $model->id;
+            $modelClient->save();
+            return $this->redirect(['view', 'id' => $modelClient->id]);
+        }
+        $client = true;
+        return $this->render('createu', [
+            'model' => $model,
+            'idClient' => $id
+        ]);
     }
 }

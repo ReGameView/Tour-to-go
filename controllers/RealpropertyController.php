@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Order;
 use Yii;
 use app\models\RealProperty;
 use app\models\RealPropertySearch;
@@ -105,7 +106,6 @@ class RealpropertyController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

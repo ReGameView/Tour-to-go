@@ -18,7 +18,7 @@ class RealPropertySearch extends RealProperty
     {
         return [
             [['id', 'id_type', 'count'], 'integer'],
-            [['city', 'area', 'street', 'house', 'floor', 'apartment', 'disc', 'type', 'per'], 'safe'],
+            [['city', 'area', 'street', 'house', 'floor', 'apartment', 'disc', 'type', 'per', 'fullAddress'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -74,6 +74,15 @@ class RealPropertySearch extends RealProperty
             ->andFilterWhere(['like', 'disc', $this->disc])
             ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'per', $this->per]);
+
+//        $query->andWhere(
+//            'city LIKE "%' . $this->fullAddress . '%" ' .
+//            'OR area LIKE "%' . $this->fullAddress . '%" ' .
+//            'OR street LIKE "%'. $this->fullAddress . '%" ' .
+//            'OR house LIKE "%'. $this->fullAddress . '%" ' .
+//            'OR floor LIKE "%'. $this->fullAddress . '%" ' .
+//            'OR apartment LIKE "%'. $this->fullAddress . '%"'
+//        );
 
         return $dataProvider;
     }

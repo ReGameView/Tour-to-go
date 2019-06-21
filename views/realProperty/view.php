@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\RealProperty */
 
-$this->title = $model->id;
+$this->title = $model->fullAddress;
 $this->params['breadcrumbs'][] = ['label' => 'Real Properties', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Удалить запись', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить эту запись?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,9 +28,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'attributes' => [
             'id',
-            'id_type',
+            [
+                'label' => 'Тип',
+                'attribute' => 'typepr.title',
+                'value' => function(\app\models\RealProperty $data)
+                {
+                    return $data->typepr->title;
+                }
+
+            ],
             'city',
             'area',
             'street',

@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_type')->textInput() ?>
+    <?= $form->field($model, 'id_type')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\TypeProperty::find()->asArray()->all(), 'id', 'title')) ?>
 
     <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'disc')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'type')->dropDownList([ 'Продажа' => 'Продажа', 'Аренда' => 'Аренда', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'type')->dropDownList([ 'Продажа' => 'Продажа', 'Аренда' => 'Аренда' ]) ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
 
@@ -42,4 +42,22 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+
+    <script async>
+        let lastClassName = "";
+        console.log(document.getElementsByClassName('field-realproperty-per'));
+        document.getElementById("realproperty-type").addEventListener('change', function (e) {
+            let activeClass = e.target.value;
+            switch (e.target.value) {
+                case "Продажа":
+                    document.getElementsByClassName('field-realproperty-per')[0].style.display = "none";
+                    document.getElementsByClassName('field-realproperty-count')[0].style.display = "none";
+                    break;
+                case "Аренда":
+                    document.getElementsByClassName('field-realproperty-per')[0].style.display = "block";
+                    document.getElementsByClassName('field-realproperty-count')[0].style.display = "block";
+                    break;
+            }
+        })
+    </script>
 </div>

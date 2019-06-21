@@ -32,7 +32,7 @@ AppAsset::register($this);
         'brandLabel' => 'Недвижимость',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse',
         ],
     ]);
     if(Yii::$app->user->isGuest)
@@ -89,7 +89,7 @@ AppAsset::register($this);
 </div>
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= date('Y') == '2019' ? 'Ситников Арсений' : 'Парамонов Сергей :Р' ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Ситников Арсений <?= date('Y') ?></p>
 
     </div>
 

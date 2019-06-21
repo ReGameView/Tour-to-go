@@ -21,7 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Создать пользователя для сайта', ['createUsers', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php
+            if($model->id_user == "")
+                echo Html::a('Создать пользователя для сайта', ['createu', 'id' => $model->id], ['class' => 'btn btn-primary'])
+        ?>
         <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -34,9 +37,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'attributes' => [
             'id',
-            'id_user',
+            [
+                'attribute' => 'user.id',
+                'format' => 'html',
+                'label' => 'Пользователь',
+                'value' => function (\app\models\Clients $data) {
+//                        return $data->client->getFullName();
+                    return Html::a(Html::encode($data->user->username), Url::to(['user/view', 'id' => $data->user->id]));
+                },
+            ],
             'f',
             'i',
             'o',
@@ -54,6 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => '',
         'columns' => [
             'id',
             [

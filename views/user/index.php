@@ -23,6 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => '',
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'columns' => [
             [
                 'attribute' => 'id',
@@ -30,11 +35,33 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'ID',
                 'headerOptions' => ['width' => '80'],
             ],
-            'username',
-//            'password',
+            [
+                'attribute' => 'username',
+                'format' => 'text',
+                'label' => 'Логин',
+            ],
+            [
+                'attribute' => 'role',
+                'format' => 'text',
+                'label' => 'Роль',
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\User::find()->asArray()->all(), 'role', 'role'),
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'delete' => function($url, $data){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['user/delete', 'id' => $data->id], [
+                            'data' => [
+                                'confirm' => Yii::t('app', 'Вы действительно хотите удалить?'),
+                                'method' => 'post',
+                            ],
+                        ]);
+                    }
+                ]
+            ],
+        ]
     ]); ?>
     <?php Pjax::end(); ?>
 </div>

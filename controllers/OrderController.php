@@ -75,8 +75,8 @@ class OrderController extends Controller
         $clients = Clients::find()->select(['id', 'f', 'i', 'o'])->all();
         $clients = ArrayHelper::map($clients, 'id', 'fullName');
 
-        $realProperty = RealProperty::find()->select(['id', 'name'])->all();
-        $realProperty = ArrayHelper::map($realProperty, 'id', 'name');
+        $realProperty = RealProperty::find()->all();
+        $realProperty = ArrayHelper::map($realProperty, 'id', 'fullAddress');
 
         $user = User::find(['id' => Yii::$app->user->id])->select(['id', 'username'])->one();
 

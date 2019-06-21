@@ -49,7 +49,7 @@ class m190222_202824_user extends Migration
             'floor' => $this->string(),
             'apartment' => $this->string(),
             'disc' => $this->string(),
-            'type' => "ENUM ('Продажа', 'Аренда')",
+            'type' => "ENUM ('Продажа', 'Аренда') DEFAULT 'Продажа'",
             'price' => Schema::TYPE_DOUBLE . ' DEFAULT 0',
             'per' => $this->string(),
             'count' => Schema::TYPE_INTEGER,
@@ -63,8 +63,8 @@ class m190222_202824_user extends Migration
 
         $this->createTable('order', [
             'id' => Schema::TYPE_PK,
-            'id_client' => Schema::TYPE_INTEGER. " NOT NULL ",
-            'id_property' => Schema::TYPE_INTEGER. " NOT NULL ",
+            'id_client' => Schema::TYPE_INTEGER,
+            'id_property' => Schema::TYPE_INTEGER,
             'id_user' => Schema::TYPE_INTEGER. " NOT NULL ",
             'comment' => Schema::TYPE_STRING,
             'created_at' => Schema::TYPE_DATETIME. " NOT NULL DEFAULT CURRENT_TIMESTAMP",
@@ -141,10 +141,10 @@ class m190222_202824_user extends Migration
                 'квартира чистая', 'интернет', 'кабельное', 'нет плесени', 'нет тараканов', "новые счётчики", "парковка", "прекрасный вид из окна", "пластиковые окна", "новый ремонт"
             ],
             'Гараж' => [
-                'отопление', 'подвал', 'свет'
+                'отопление', 'подвал', 'свет', 'стальные ворота', 'нет мышей', 'утеплен'
             ],
             'Дача' => [
-                'плодородная земля', ""
+                'плодородная земля', 'забор', 'баня', 'хороший фундамент'
             ]
         ];
         $countProperty = rand(5, 50);
@@ -156,11 +156,12 @@ class m190222_202824_user extends Migration
             $randType = rand(1, count($defaultComment)); // Тип недвижимости
             if($randType == 1)
             {
-                $randPrice = rand(1, 2) % 2 ? "Продажа" : "Аренда";
-            }else {
-                $randPrice = "0";
-            }
+                $randPrice = "Продажа";
 
+            }else {
+                $randPrice = rand(1, 2) % 2 ? "Продажа" : "Аренда";
+            }
+            $comment = $this->RandomComment($defaultComment[array_keys($defaultComment)[$randType - 1]]);
             $this->insert('real_property',[
                 'id_type' => $randType,
                 'city' => $randCity,
@@ -168,12 +169,12 @@ class m190222_202824_user extends Migration
                 'street' => $arrayPerson->street,
                 'house' => $arrayPerson->house,
                 'floor' => "",
-                'apartment' =>  $arrayPerson->apartment,
-                'disc' => $this->RandomComment($defaultComment[$randType - 1]),
+                'apartment' => $randType != 1 ? $arrayPerson->apartment : "",
+                'disc' => $comment,
                 'type' => $randPrice,
                 'price' => ($randPrice == "Продажа" ? 500 : 1) * (rand(8000, 12000) + ($countApartament * 5) * 500),
-                'per' => ($randType == 1 ? "" : "дней"),
-                'count' => ($randType == 1 ? "" : "30"),
+                'per' => ($randPrice == "Продажа" ? "" : "дней"),
+                'count' => ($randPrice == "Продажа" ? "" : "30"),
             ]);
         }
 
@@ -219,10 +220,10 @@ class m190222_202824_user extends Migration
      */
     public function safeDown()
     {
-//        $this->dropForeignKey('FK_PROPERTY_IMG', 'real_property_images');
-//        $this->dropForeignKey('FK_order_clients', 'order');
-//        $this->dropForeignKey('FK_order_property', 'order');
-//        $this->dropForeignKey('FK_CLIENTS_ID', 'query_clients');
+        $this->dropForeignKey('FK_PROPERTY_IMG', 'real_property_images');
+        $this->dropForeignKey('FK_order_clients', 'order');
+        $this->dropForeignKey('FK_order_property', 'order');
+        $this->dropForeignKey('FK_CLIENTS_ID', 'query_clients');
 
         $this->dropTable('user');
         $this->dropTable('clients');
@@ -250,7 +251,7 @@ class m190222_202824_user extends Migration
         $comment = "";
         $countComment = rand(1, count($defaultComment));
         for($i = 0; $i < $countComment; $i++) {
-            $randIndex = rand(0, count($defaultComment));
+            $randIndex = rand(0, count($defaultComment) - 1);
             while (in_array($defaultComment[$randIndex], $array))
             {
                 $randIndex = rand(0, count($defaultComment));
